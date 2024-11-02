@@ -1,0 +1,37 @@
+#  spring.application.name=auth-service
+server:
+  port: 8085
+debug: true
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defalutZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: auth-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/auth?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+
+  jpa:
+    show-sql: true
+    # hibernate Mysql ??
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+    # DB? ?? ?? ?? ??
+    hibernate:
+      ddl-auto: update
+
+    # SQL? ??? ??(JPA ???? Hibernate ??)
+    properties:
+      hibernate:
+        format_sql: false
+
+jwt:
+  secret: my_secret_key
+  expiration: 3600000
