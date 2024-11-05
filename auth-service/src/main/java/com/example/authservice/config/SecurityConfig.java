@@ -7,10 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity(debug = true)
@@ -21,19 +19,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
-            .formLogin(AbstractHttpConfigurer::disable)
-            .csrf(AbstractHttpConfigurer::disable)
-            .httpBasic(AbstractHttpConfigurer::disable)
-            .sessionManagement(
-                sessionManagement -> sessionManagement.sessionCreationPolicy(
-                    SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
-                .requestMatchers("/auth/**").permitAll()
-                .anyRequest().permitAll()
-            )
-            .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
-            .build();
+        http
+            .csrf(AbstractHttpConfigurer::disable) // CSRF 비활성화 (필요에 따라)
+            .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers(
+                    "/auth/**"  // /auths로 시작하는 모든 경로 허용
+                )
+                .permitAll() // 인증 없이 접근 허용
+                .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
+            );
+
+        return http.build();
     }
 
     @Bean
