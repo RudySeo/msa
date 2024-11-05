@@ -1,5 +1,5 @@
 server:
-  port: 9002
+  port: 9003
 debug: true
 eureka:
   client:
@@ -13,10 +13,4 @@ spring:
     web-application-type: reactive
   application:
     name: apigateway-service
-  cloud:
-    gateway:
-      routes:
-#        - id: user-service
-#          uri: lb://USER-SERVICE
-#          predicates:
-#            - Path=/users/**
+
