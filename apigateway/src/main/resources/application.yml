@@ -12,5 +12,8 @@ spring:
   main:
     web-application-type: reactive
   application:
-    name: apigateway-service
+    name: gateway-service
 
+
+jwt:
+  secret: 3ff3e0a7b04deb427e630aa85181956bcdbc46249df88454f0a0731302e0df0b82bd1dcac3852474689d517307bafa63a569cf19fae43c38a21b4706c45b1733
