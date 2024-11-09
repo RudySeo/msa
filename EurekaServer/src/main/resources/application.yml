@@ -1,13 +1,5 @@
-server:
-  port: 8761
-
 spring:
   config:
-    import: optionnal:configserver:http://localhost:8888
+    import: optional:configserver:http://localhost:8888
   application:
     name: discovery-service
-
-eureka:
-  client:
-    register-with-eureka: false
-    fetch-registry: false
