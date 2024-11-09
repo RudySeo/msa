@@ -50,7 +50,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     // 토큰을 검증
     private void proceedAuthentication(HttpServletRequest request, String token) {
         try {
-            JwtHolder jwtHolder = new JwtHolder(jwtUtil.parseToken(token), token);
+            JwtHolder jwtHolder = new JwtHolder(jwtUtil.validateToken(token), token);
             // 토큰 파싱 후 요청이 리프레시 토큰 기반인지, 엑세스 토큰 기반인지 확인
             if (isRefreshTokenBasedRequest(request, jwtHolder) || isAccessTokenBasedRequest(request,
                 jwtHolder)) {
